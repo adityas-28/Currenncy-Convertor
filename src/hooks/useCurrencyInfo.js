@@ -6,18 +6,23 @@ function useCurrencyInfo(currency) {
 
   useEffect(() => {
     if (!currency) return;
-    fetch(
-      `https://anyapi.io/api/v1/exchange/rates?base=${currency}&apiKey=${API_KEY}`
-    )
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(`res : ${res}`);
-        setData(res);
-      })
-      .catch((err) => {
+
+    // Define an async function inside the effect
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `/api/api/v1/exchange/rates?base=${currency}&apiKey=${API_KEY}`
+        );
+        const json = await response.json();
+        console.log("res:", json);
+        setData(json);
+      } catch (err) {
         setData(null);
         console.error(err);
-      });
+      }
+    };
+
+    fetchData();
   }, [currency]);
 
   return data;
