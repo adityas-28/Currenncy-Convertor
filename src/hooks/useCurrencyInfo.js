@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { API_KEY } from "../secrets.js";
+import API_KEY from "./../secrets.js";
 
 function useCurrencyInfo(currency) {
   const [data, setData] = useState(null);
+
   useEffect(() => {
     if (!currency) return;
     fetch(
@@ -10,6 +11,7 @@ function useCurrencyInfo(currency) {
     )
       .then((res) => res.json())
       .then((res) => {
+        console.log(`res : ${res}`);
         setData(res);
       })
       .catch((err) => {
@@ -18,7 +20,6 @@ function useCurrencyInfo(currency) {
       });
   }, [currency]);
 
-  console.log(data);
   return data;
 }
 
